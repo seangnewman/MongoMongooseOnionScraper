@@ -1,0 +1,36 @@
+{
+  "name": "theonionscraper",
+  "version": "1.0.0",
+  "description": "Mongo, Mongoose and Cheerio to pull information from the Onion",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seangnewman/MongoMongooseOnionScraper.git"
+  },
+  "keywords": [
+    "mongo",
+    "mongoose",
+    "cheerio",
+    "express",
+    "express-handlebars",
+    "body-parser",
+    "request"
+  ],
+  "author": "newmanuevers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seangnewman/MongoMongooseOnionScraper/issues"
+  },
+  "homepage": "https://github.com/seangnewman/MongoMongooseOnionScraper#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.1.4",
+    "request": "^2.87.0"
+  }
+}
