@@ -1,0 +1,25 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-size: 100%;
+  background-color: green;
+}
+ 
+.collectionItemContainer{
+  display:flex;
+  justify-content: space-around;
+  color:green;
+  background-color: white;
+
+}
+
+#headlineContainer{
+   
+  padding-top: .5rem;
+  flex-direction: column;
+  color: darkgreen;
+  font-size: 1.5rem;
+  text-align: center;
+   
+}

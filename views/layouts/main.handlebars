@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cheerio! The Onion Scraper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <!-- Experimenting with Materialize -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/styles.css">
+  </head>
+  <body>
+    <main>
+  
+   
+
+
+
+    <!-- Page Content -->
+    <main> 
+      <!-- Site Info Container -->
+      <div class="container">
+        <ul class="collection with-header">
+          <li class="collection-header green lighten-2 center"><h4><b>Headline from the Onion</b></h4></li>
+          <div class="collectionItemContainer"> 
+            <li class="collection-item"><div>Click <i class="material-icons">note_add</i> to add a comment.</div></li>
+            <li class="collection-item"><div>Click <i class="material-icons">short_text</i> to view comments.</div></li>
+          </div>
+        </ul>
+      </div>
+
+      <div class="container">
+        {{{body}}}
+      </div>
+
+      <!-- Footer -->
+      <footer class="page-footer green darken-3">
+      </footer>
+    </main>
+    <!-- Link in jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!-- link to Materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script type="text/javascript" src="resources/js/script.js"></script>
+  </body>
+</html>
