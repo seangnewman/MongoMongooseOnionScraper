@@ -98,9 +98,11 @@ router.get("/articles/:id", function(req, res) {
     
 });
 
-// Route for saving/updating an Article's associated Note
-router.post("/articles/:id", function(req, res) {
  
+/*
+// Route for saving/updating an Article's associated Note
+router.post("/add/note/:id", function(req, res) {
+  console.log(req.body);
   // Create a new note and pass the req.body to the entry
   db.Note.create(req.body)
     .then(function(dbNote) {
@@ -111,14 +113,16 @@ router.post("/articles/:id", function(req, res) {
     })
     .then(function(dbArticle) {
       // If we were able to successfully update an Article, send it back to the client
-      res.json(dbArticle);
+      //res.json(dbArticle);
+      console.log("success");
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
-      res.json(err);
+      //res.json(err);
+      console.log("An error occurred");
     });
   });
-
+*/
 // Delete a Note 
 router.post("/articles/remove/:id", function(req, res) {
  
@@ -135,49 +139,8 @@ router.post("/articles/remove/:id", function(req, res) {
  
 router.post('/articles/add/:id', function (req, res){
 
-  // Collect article id
-  var articleId = req.params.id;
+  alert("found");
   
-  // Collect Author Name
-  var noteName = req.body.name;
-
-  // Collect Comment Content
-  var noteContent = req.body.note;
-
-  console.log(noteContent);
-
-  // "result" object has the exact same key-value pairs of the "Comment" model
-  var result = {
-    name: noteName,
-    content: noteContent
-  };
-
-  // Using the Comment model, create a new comment entry
-  var entry = new Note (result);
-
-  // Save the entry to the database
-  entry.save(function(err, doc) {
-    // log any errors
-    if (err) {
-      console.log(err);
-    } 
-    // Or, relate the comment to the article
-    else {
-      
-      Article.findOneAndUpdate({'_id': articleId}, {$push: {'note':doc._id}}, {new: true})
-      // execute the above query
-      .exec(function(err, doc){
-        // log any errors
-        if (err){
-          console.log(err);
-        } else {
-          // Send Success Header
-          res.sendStatus(200);
-        }
-      });
-    }
-  });
-
 });
 
 
