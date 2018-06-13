@@ -1,13 +1,12 @@
 
+$(document).ready(function () {
 
-$(document).ready(function(){
- 
- 
+
 
   // Click Listener for FORM SUBMISSION to ADD a comment
-  $('.add-comment-button').on('click', function(event){
+  $('.add-comment-button').on('click', function (event) {
     event.preventDefault();
-     
+
     // Get _id of comment to be deleted
     var articleId = $(this).data("id");
 
@@ -15,35 +14,34 @@ $(document).ready(function(){
     var originURL = window.location.origin;
     const actionString = '/articles/add/';
     const frmAction = "form-add-";
-    var formID = $('#' + frmAction + articleId );
-    
-     
-    // AJAX Call to delete Comment
+    var formID = $('#' + frmAction + articleId);
+
+
+
     $.ajax({
       url: originURL + actionString + articleId,
       type: 'POST',
       data: formID.serialize(),
-      success : function(response){
+      success: function (response) {
         console.log("yes!")
       },
-      error: function(error){
+      error: function (error) {
         console.log("shit!");
       }
     })
-    .done(function() {
-      // Refresh the Window after the call is done
-      console.log('done?');
-      alert("done?");
-      location.reload();
-    });
+      .done(function () {
+        // Refresh the Window after the call is done
+        console.log('done?');
+        alert("done?");
+        location.reload();
+      });
     ;
-    
-    // Prevent Default
-    return false;
+
+
 
   });
-   
- 
-  
+
+
+
 });
 

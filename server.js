@@ -36,8 +36,8 @@ app.set('view engine', 'handlebars');
 
 
 
-var PORT = process.env.PORT || 5000;
-//listen(process.env.PORT || 5000)
+var PORT = process.env.PORT || 3000;
+//listen(process.env.PORT || 3000)
 
 
 // Configure middleware
@@ -48,8 +48,8 @@ var PORT = process.env.PORT || 5000;
 
 // Connect to the Mongo DB
 // Create a collection to populate the collection//
-//mongoose.connect("mongodb://localhost/theOnionPopulator");
-mongoose.connect("mongodb://heroku_rdsn9lrh:8jupf52ejk0o85dvho6s5i6ggo@ds229458.mlab.com:29458/heroku_rdsn9lrh");
+mongoose.connect("mongodb://localhost/theOnionPopulator");
+//mongoose.connect("mongodb://heroku_rdsn9lrh:8jupf52ejk0o85dvho6s5i6ggo@ds229458.mlab.com:29458/heroku_rdsn9lrh");
 
 // Routes
 
