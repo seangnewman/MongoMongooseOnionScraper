@@ -3,6 +3,7 @@ var express = require("express");
 var mongoose = require("mongoose");
 var moment = require('moment');
 var path = require('path');
+var bodyParser = require("body-parser");
 // Axios is a promised-based http library, similar to jQuery's Ajax method
 // It works on the client and on the server
 var axios = require("axios");
@@ -11,6 +12,18 @@ var cheerio = require("cheerio");
 var db = require("../models");
 // Initialize Express
 var router = express.Router();
+var app = express();
+app.use('/', router);
+// Use body-parser for handling form submissions
+app.use(bodyParser.urlencoded({ extended: true }));
+// Use express.static to serve the public folder as a static directory
+app.use(express.static("public"));
+
+// Express-Handlebars
+var exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
 
 /* ****************************************************************************
 // Routes
@@ -79,7 +92,7 @@ router.get("/articles", function (req, res) {
     });
 
 });
-
+/*
 // Route for grabbing a specific Article by id, populate it with it's note
 router.get("/articles/:id", function (req, res) {
 
@@ -98,7 +111,7 @@ router.get("/articles/:id", function (req, res) {
 
 });
 
-
+*/
 /*
 // Route for saving/updating an Article's associated Note
 router.post("/add/note/:id", function(req, res) {
@@ -123,6 +136,7 @@ router.post("/add/note/:id", function(req, res) {
     });
   });
 */
+/*
 // Delete a Note 
 router.post("/articles/remove/:id", function (req, res) {
 
@@ -135,17 +149,32 @@ router.post("/articles/remove/:id", function (req, res) {
     }
   });
 
-
-
-  router.post('/articles/add/:id', function (req, res) {
-
-    alert("found");
-
+*/
+ 
+  router.post("/articles/:id", function(req, res) {
+    // Create a new note and pass the req.body to the entry
+    console.log("in post");
+    db.Note.create(req.body)
+      .then(function(dbNote) {
+        // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
+        // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+        // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+       
+        return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+      })
+      .then(function(dbArticle) {
+        // If we were able to successfully update an Article, send it back to the client
+         
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
   });
 
-
-
-});
+ 
+//});
 
 
 // Export app to Server.js

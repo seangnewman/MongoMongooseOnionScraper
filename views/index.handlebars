@@ -68,16 +68,16 @@
       <div class="collapsible-body" style="background-color: white;">
       
         {{!-- Check if the article has comments --}}
-        {{#if comments}}
+        {{#if content}}
 
           {{!-- Article has comments so iterate over them  --}}
           <ul class="collection">
-            {{#each comments}}
+            {{#each content}}
             
               <li class="collection-item">
 
                 {{!-- Add Author Name --}}
-                <b>{{author}}</b> 
+                <b>{{name}}</b> 
 
                 {{!-- Add a Delete Button --}}
                 <span class="badge">

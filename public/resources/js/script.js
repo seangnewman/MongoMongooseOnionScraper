@@ -12,21 +12,24 @@ $(document).ready(function () {
 
     // URL root (so it works in eith Local Host for Heroku)
     var originURL = window.location.origin;
-    const actionString = '/articles/add/';
+    const actionString = '/articles/' + articleId;
     const frmAction = "form-add-";
     var formID = $('#' + frmAction + articleId);
-
-
+    var formData = {
+      name :"Testing",
+      content : "Testing"
+    }
+    console.log(actionString);
 
     $.ajax({
-      url: originURL + actionString + articleId,
-      type: 'POST',
-      data: formID.serialize(),
+      url: originURL + actionString ,
+      method: 'POST',
+      data: {name:"testing", content: "testing"},
       success: function (response) {
-        console.log("yes!")
+        console.log(response);
       },
       error: function (error) {
-        console.log("shit!");
+        console.log(error);
       }
     })
       .done(function () {
