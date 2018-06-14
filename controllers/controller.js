@@ -24,16 +24,17 @@ var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-
+/*
 /* ****************************************************************************
 // Routes
 // Default route, using request as it is required but axiom is 
 // my perferred method
 ****************************************************************************** */
+/*
 router.get('/', function (request, response) {
   response.redirect('/scrape');   // Scrape the onion
 }); // End default action
-
+/*
 // A GET route for scraping the echoJS website
 router.get("/scrape", function (req, res) {
   // First, we grab the body of the html with request
@@ -72,7 +73,7 @@ router.get("/scrape", function (req, res) {
     res.redirect("/articles");
   });
 });
-
+/*
 // Route for getting all Articles from the db
 router.get("/articles", function (req, res) {
   // Grab every document in the Articles collection
@@ -150,10 +151,10 @@ router.post("/articles/remove/:id", function (req, res) {
   });
 
 */
- 
+ /*
   router.post("/articles/:id", function(req, res) {
     // Create a new note and pass the req.body to the entry
-    console.log("in post");
+    console.log(req.body);
     db.Note.create(req.body)
       .then(function(dbNote) {
         // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
@@ -172,7 +173,7 @@ router.post("/articles/remove/:id", function (req, res) {
         res.json(err);
       });
   });
-
+ */
  
 //});
 

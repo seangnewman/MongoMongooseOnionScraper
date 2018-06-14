@@ -16,16 +16,17 @@ $(document).ready(function () {
     const frmAction = "form-add-";
     var formID = $('#' + frmAction + articleId);
     var formData = {
-      name :"Testing",
-      content : "Testing"
+      name :$('#name').val(),
+      content : $('#content').val()
     }
-    console.log(actionString);
+    console.log(formData);
 
     $.ajax({
       url: originURL + actionString ,
       method: 'POST',
-      data: {name:"testing", content: "testing"},
+      data: formData ,
       success: function (response) {
+        alert("success!");
         console.log(response);
       },
       error: function (error) {
@@ -34,8 +35,7 @@ $(document).ready(function () {
     })
       .done(function () {
         // Refresh the Window after the call is done
-        console.log('done?');
-        alert("done?");
+       
         location.reload();
       });
     ;
@@ -44,6 +44,42 @@ $(document).ready(function () {
 
   });
 
+
+  $('#viewComments').on("click", function(e){
+    e.preventDefault();
+    var thisId = $(this).attr("data-id");
+    
+
+
+
+    $.ajax({
+      method: "GET",
+      url: "/articles/" + thisId
+    }).then(function(data){
+      alert(data);
+         var noteName = `<strong> Name : ${data.note.name} </strong>`;  
+         var noteContent = `Note : ${data.note.content}`; 
+
+         var deleteButton = `<span class="badge">
+         <form id="form-delete-{{_id}}" method="post">
+           <input class="btn-small delete-comment-button" data-id="{{_id}}" type="submit" value="Delete" style="color: white; background-color: red; border-color: red;">
+         </form>
+       </span>`;
+        
+
+
+       
+          $(`#name-${thisId}`).append(noteName);
+          $(`#content-${thisId}`).append(noteContent).append(deleteButton);
+          $(`#noContent-${thisId}`).text('');
+          
+      
+
+
+         console.log(data.note.name);
+         console.log(data.note.content);
+    });
+  });
 
 
 });
