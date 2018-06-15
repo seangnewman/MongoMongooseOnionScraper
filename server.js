@@ -33,7 +33,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 
- /*
+/*
 /* ****************************************************************************
 // Routes
 // Default route, using request as it is required but axiom is 
@@ -44,19 +44,19 @@ router.get('/', function (request, response) {
   response.redirect('/scrape');   // Scrape the onion
 }); // End default action
 
-app.post("/articles/:id", function(req, res) {
+app.post("/articles/:id", function (req, res) {
   // Create a new note and pass the req.body to the entry
-  
+
   db.Note.create(req.body)
-    .then(function(dbNote) {
+    .then(function (dbNote) {
       return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
     })
-    .then(function(dbArticle) {
+    .then(function (dbArticle) {
       // If we were able to successfully update an Article, send it back to the client
-       
+
       res.json(dbArticle);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       // If an error occurred, send it to the client
       res.json(err);
     });
@@ -77,8 +77,8 @@ app.get("/articles", function (req, res) {
         var hbsObject = { articles: doc }
         res.render('index', hbsObject);
         //res.json(dbArticle);
-         //res.json(hbsObject)
-          
+        //res.json(hbsObject)
+
       }
     });
 
@@ -86,17 +86,17 @@ app.get("/articles", function (req, res) {
 
 
 // Route for grabbing a specific Article by id, populate it with it's note
-app.get("/articles/:id", function(req, res) {
+app.get("/articles/:id", function (req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
   db.Article.findOne({ _id: req.params.id })
     // ..and populate all of the notes associated with it
     .populate("note")
-    .then(function(dbArticle) {
+    .then(function (dbArticle) {
       // If we were able to successfully find an Article with the given id, send it back to the client
       console.log("complete");
       res.json(dbArticle);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       // If an error occurred, send it to the client
       res.json(err);
     });
@@ -139,6 +139,30 @@ app.get("/scrape", function (req, res) {
     res.redirect("/articles");
   });
 });
+
+// Delete One from the DB
+app.get("/delete/:id", function (req, res) {
+  // Remove a note using the objectID
+  db.notes.remove(
+    {
+      _id: mongojs.ObjectID(req.params.id)
+    },
+    function (error, removed) {
+      // Log any errors from mongojs
+      if (error) {
+        console.log(error);
+        res.send(error);
+      }
+      else {
+        // Otherwise, send the mongojs response to the browser
+        // This will fire off the success function of the ajax request
+        console.log(removed);
+        res.send(removed);
+      }
+    }
+  );
+});
+
 
 var PORT = process.env.PORT || 3000;
 //listen(process.env.PORT || 3000)

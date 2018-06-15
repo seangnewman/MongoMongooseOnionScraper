@@ -16,15 +16,15 @@ $(document).ready(function () {
     const frmAction = "form-add-";
     var formID = $('#' + frmAction + articleId);
     var formData = {
-      name :$('#name').val(),
-      content : $('#content').val()
+      name: $('#name').val(),
+      content: $('#content').val()
     }
     console.log(formData);
 
     $.ajax({
-      url: originURL + actionString ,
+      url: originURL + actionString,
       method: 'POST',
-      data: formData ,
+      data: formData,
       success: function (response) {
         alert("success!");
         console.log(response);
@@ -35,7 +35,7 @@ $(document).ready(function () {
     })
       .done(function () {
         // Refresh the Window after the call is done
-       
+
         location.reload();
       });
     ;
@@ -45,41 +45,68 @@ $(document).ready(function () {
   });
 
 
-  $('#viewComments').on("click", function(e){
+  $('#viewComments').on("click", function (e) {
     e.preventDefault();
     var thisId = $(this).attr("data-id");
-    
+
 
 
 
     $.ajax({
       method: "GET",
       url: "/articles/" + thisId
-    }).then(function(data){
+    }).then(function (data) {
       alert(data);
-         var noteName = `<strong> Name : ${data.note.name} </strong>`;  
-         var noteContent = `Note : ${data.note.content}`; 
+      var noteName = `<strong> Name : ${data.note.name} </strong>`;
+      var noteContent = `Note : ${data.note.content}`;
 
-         var deleteButton = `<span class="badge">
-         <form id="form-delete-{{_id}}" method="post">
-           <input class="btn-small delete-comment-button" data-id="{{_id}}" type="submit" value="Delete" style="color: white; background-color: red; border-color: red;">
+      var deleteButton = `<span class="badge">
+         <form id="form-delete-{{_id}}" >
+           <input class="btn-small delete-comment-button" data-id="{{_id}} class="delete" type="submit" value="Delete" style="color: white; background-color: red; border-color: red;">
          </form>
        </span>`;
-        
 
 
-       
-          $(`#name-${thisId}`).append(noteName);
-          $(`#content-${thisId}`).append(noteContent).append(deleteButton);
-          $(`#noContent-${thisId}`).text('');
-          
-      
 
 
-         console.log(data.note.name);
-         console.log(data.note.content);
+      $(`#name-${thisId}`).append(noteName);
+      $(`#content-${thisId}`).append(noteContent).append(deleteButton);
+      $(`#noContent-${thisId}`).text('');
+
+
+
+
+      console.log(data.note.name);
+      console.log(data.note.content);
     });
   });
+
+  // When user clicks the delete button for a note
+  $('.collection-item').on("click", ".delete-comment-button", function () {
+
+    // Save the p tag that encloses the button
+    var selected = $(this).parent();
+    var thisId = $(this).attr("data-id");
+
+    alert(thisId);
+
+
+    // Make an AJAX GET request to delete the specific note
+    // this uses the data-id of the p-tag, which is linked to the specific note
+    $.ajax({
+      type: "GET",
+      url: "/delete/" + selected.attr("data-id"),
+
+      // On successful call
+      success: function (response) {
+        // Remove the p-tag from the DOM
+        selected.remove();
+        // Clear the note and title inputs
+
+      }
+    });
+  });
+
 
 
 });
