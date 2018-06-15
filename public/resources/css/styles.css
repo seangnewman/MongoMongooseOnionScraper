@@ -19,7 +19,25 @@ body {
   padding-top: .5rem;
   flex-direction: column;
   color: darkgreen;
-  font-size: 1.5rem;
-  text-align: center;
+  font-size: 1.25rem;
+  text-align: left;
+  clear:left;
+  line-height: 110%;
+  padding-bottom: .5rem;
+
    
+}
+.collapsibleForm{
+  background-color: whitesmoke;
+}
+.collapsible-body{
+  background-color:lightgreen;
+   
+}
+
+.add-comment-button{
+  font-size: 1rem;
+   
+  margin: 1rem;
+
 }

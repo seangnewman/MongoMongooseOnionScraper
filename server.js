@@ -1,5 +1,7 @@
 var bodyParser = require("body-parser");
 var moment = require('moment');
+var mongojs = require("mongojs");
+var logger = require("morgan");
 
 
 var mongoose = require("mongoose");
@@ -22,7 +24,7 @@ var app = express();
 var router = require('./controllers/controller.js');
 app.use('/', router);
 // Use body-parser for handling form submissions
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
@@ -143,7 +145,19 @@ app.get("/scrape", function (req, res) {
 // Delete One from the DB
 app.get("/delete/:id", function (req, res) {
   // Remove a note using the objectID
-  db.notes.remove(
+   console.log(mongojs.ObjectID(req.params.id));
+
+
+   db.Note.findByIdAndRemove(req.params.id, function(error, result ){
+     if(error){
+       res.send(error);
+     }else{
+       console.log("deleted");
+       res.redirect("/articles");
+     }
+   });
+/*
+  db.Note.remove(
     {
       _id: mongojs.ObjectID(req.params.id)
     },
@@ -152,17 +166,19 @@ app.get("/delete/:id", function (req, res) {
       if (error) {
         console.log(error);
         res.send(error);
+       
       }
       else {
         // Otherwise, send the mongojs response to the browser
         // This will fire off the success function of the ajax request
-        console.log(removed);
-        res.send(removed);
+         console.log(removed);
+        //res.send(removed);
+        res.redirect("/articles");
       }
-    }
-  );
+    });
+    */
 });
-
+ 
 
 var PORT = process.env.PORT || 3000;
 //listen(process.env.PORT || 3000)
@@ -176,8 +192,8 @@ var PORT = process.env.PORT || 3000;
 
 // Connect to the Mongo DB
 // Create a collection to populate the collection//
-mongoose.connect("mongodb://localhost/theOnionPopulator");
-//mongoose.connect("mongodb://heroku_rdsn9lrh:8jupf52ejk0o85dvho6s5i6ggo@ds229458.mlab.com:29458/heroku_rdsn9lrh");
+//mongoose.connect("mongodb://localhost/theOnionPopulator");
+mongoose.connect("mongodb://heroku_rdsn9lrh:8jupf52ejk0o85dvho6s5i6ggo@ds229458.mlab.com:29458/heroku_rdsn9lrh");
 
 // Routes
 

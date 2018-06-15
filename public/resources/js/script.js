@@ -26,7 +26,7 @@ $(document).ready(function () {
       method: 'POST',
       data: formData,
       success: function (response) {
-        alert("success!");
+         
         console.log(response);
       },
       error: function (error) {
@@ -56,13 +56,13 @@ $(document).ready(function () {
       method: "GET",
       url: "/articles/" + thisId
     }).then(function (data) {
-      alert(data);
+      
       var noteName = `<strong> Name : ${data.note.name} </strong>`;
       var noteContent = `Note : ${data.note.content}`;
 
       var deleteButton = `<span class="badge">
-         <form id="form-delete-{{_id}}" >
-           <input class="btn-small delete-comment-button" data-id="{{_id}} class="delete" type="submit" value="Delete" style="color: white; background-color: red; border-color: red;">
+         <form id="form-delete-{${thisId}}" data-id="${thisId}" data-noteid="${data.note._id}" >
+           <input class="btn-small delete-comment-button" data-id="${thisId}" data-noteid="${data.note._id}" class="delete" type="submit" value="Delete" style="color: white; background-color: red; border-color: red;">
          </form>
        </span>`;
 
@@ -85,22 +85,17 @@ $(document).ready(function () {
   $('.collection-item').on("click", ".delete-comment-button", function () {
 
     // Save the p tag that encloses the button
-    var selected = $(this).parent();
-    var thisId = $(this).attr("data-id");
-
-    alert(thisId);
-
-
-    // Make an AJAX GET request to delete the specific note
-    // this uses the data-id of the p-tag, which is linked to the specific note
+    var selected = $(this).parent().attr("data-id");
+    var thisId = $(this).attr("data-noteid");
+     
     $.ajax({
       type: "GET",
-      url: "/delete/" + selected.attr("data-id"),
+      url: "/delete/" + thisId,
 
       // On successful call
       success: function (response) {
         // Remove the p-tag from the DOM
-        selected.remove();
+        thisId.remove();
         // Clear the note and title inputs
 
       }

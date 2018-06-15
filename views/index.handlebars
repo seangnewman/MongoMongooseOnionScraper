@@ -8,7 +8,7 @@
     <li>
       <div style="background-color: white;" class="collapsible-header green lighten-2">
        <!-- <i class="material-icons">add</i> <b>{{updated}}</b> -->
-        <div id="headlineContainer" style="clear: left; line-height: 110%; padding-bottom: .5rem;"><b>{{headline}}</b></div>
+        <div id="headlineContainer" ><i class="material-icons">view_headline</i><b>{{headline}}</b><br/>{{timestamp}}</div>
       </div>
       <div class="collapsible-body" style="background-color: white;">
         <p>
@@ -17,7 +17,7 @@
           <br><br>
 
           <i><a href="{{URL}}" target="_blank">Article located here.</a>.</i>
-          <i><a href="{{URL}}" target="_blank">{{note}}</a>.</i>
+           
         </p>
           
       </div>
@@ -27,9 +27,9 @@
     <!-- Add Comments Drop Down -->
     <li>
       <div class="collapsible-header"><i class="material-icons">note_add</i></div>
-      <div class="collapsible-body" style="background-color: white;">
+      <div class="collapsible-body" >
 
-        <form id="form-add-{{_id}}"  style="background-color: white;">
+        <form class="collapsibleForm" id="form-add-{{_id}}"  >
 
           <!-- Author Name Input -->
           <div class="row">
@@ -86,7 +86,7 @@
         
         {{!-- No comments, so display message --}}
          
-          <p id="noContent-{{_id}}">No Comments Yet :( </p>
+          <p id="noContent-{{_id}}">No Responses <i class="material-icons">info</i> </p>
       
             
         
